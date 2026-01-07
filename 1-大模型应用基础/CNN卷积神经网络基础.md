@@ -57,7 +57,7 @@ class ConvolutionalNeuralNetwork(nn.Module):
         # 输入特征数为84，输出特征数为10（假设有10个类别）
         self.fc3 = nn.Linear(84, 10)
 
-    def forward(self, x):
+    def forward(self, x): # x: (batch_size,1,32,32)
         # 第一层卷积 + ReLU + 池化
         x = self.pool(F.relu(self.conv1(x)))
         # 第二层卷积 + ReLU + 池化
