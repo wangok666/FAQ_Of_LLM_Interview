@@ -1,0 +1,21 @@
+[project]
+name = "FAQ_Of_LLM_Interview"
+version = "0.1.0"
+description = "FAQ_Of_LLM_Interview"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "concurrent-log-handler>=0.9.28",
+    "matplotlib>=3.10.6",
+    "openai>=1.65.4",
+    "opencv-python>=4.11.0.86",
+    "pandas>=2.3.1",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+    "termcolor>=2.5.0",
+    "tqdm>=4.67.1",
+]
+
+[tool.setuptools]
+py-modules = []
+
