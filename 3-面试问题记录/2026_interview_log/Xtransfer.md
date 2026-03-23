@@ -21,3 +21,80 @@
 
 ---
 
+1. 做一个强化学习的Agent怎么做的?
+2. 强化学习里面参数 $G$, $\epsilon$, $\beta$ (0.01-KL惩罚系数)调大调小有什么影响
+3. 奖励函数怎么写的?
+4. 多分类任务为什么不用bert?
+5. 最近看了什么论文,稍微讲一下
+6. 多轮对话怎么做的?
+7. 上下文工程怎么做的?
+8. 长期记忆,短期记忆怎么做的?
+9. 怎么做的工程管理
+
+
+---
+
+
+
+太久没做算法题目了,我之后一定要把这个记住,妈的
+
+
+- 最长回文子串
+```python
+def longestPalindrome(s: str) -> str:
+    n = len(s)
+    if n < 2:
+        return s
+    
+    # 初始化 DP 表，单个字符本身一定是回文
+    dp = [[False] * n for _ in range(n)]
+    for i in range(n):
+        dp[i][i] = True
+        
+    max_len = 1
+    start = 0
+    
+    # L 是子串长度，从 2 开始逐渐增加
+    for L in range(2, n + 1):
+        for i in range(n):
+            j = L + i - 1  # 结束索引
+            if j >= n:
+                break
+                
+            if s[i] == s[j]:
+                if j - i < 3:
+                    dp[i][j] = True
+                else:
+                    dp[i][j] = dp[i+1][j-1]
+            
+            # 记录最长长度和起始位置
+            if dp[i][j] and L > max_len:
+                max_len = L
+                start = i
+                
+    return s[start:start + max_len]
+```
+
+- 二分类查找数组
+
+input = [1, 6, 56, 78, 99]
+
+target = 6
+
+```python
+def binary_search(nums, target):
+    left, right = 0, len(nums) - 1
+    
+    while left <= right:
+        # 取中间索引，(left + right) // 2 在极端情况下可能溢出
+        mid = left + (right - left) // 2
+        
+        if nums[mid] == target:
+            return mid  # 找到目标，返回下标
+        elif nums[mid] < target:
+            left = mid + 1  # 目标在右边，忽略左半部分
+        else:
+            right = mid - 1  # 目标在左边，忽略右半部分
+            
+    return -1  # 没找到
+```
