@@ -6,6 +6,7 @@
 
 
 
+---
 
 
 
@@ -16,9 +17,12 @@
 
 
 
+
+```
 <|vision_start|>
 <|image_pad|>（或多个连续的 <|image_pad|>，数量取决于图像被切分成多少个 patch 组）
 <|vision_end|>
+```
 
 ```python
 from transformers import AutoProcessor
