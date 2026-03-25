@@ -153,6 +153,7 @@ tags: [code-review, quality-assurance, security, best-practices]
 3. 直接输入：“请审查以下代码” + 粘贴代码，即可自动触发。
 4. 可结合 MCP 工具实现真实文件读取和脚本执行，进一步提升自动化程度。
 
+参考:`https://github.com/aceliuchanghong/skills`
 
 ## 3. openclaw是什么,架构怎么样?
 
@@ -255,3 +256,68 @@ graph = workflow.compile(checkpointer=memory)
 config = {"configurable": {"thread_id": "user_123"}}
 graph.invoke(input_data, config)
 ```
+
+## 8. 调研分析型agent怎么搭建的? 
+
+- 明确需求范围
+
+定义用例（如“生成固态电池行业研报”）、输入（关键词+深度要求）、输出格式（带引用、图表、SWOT分析）、约束（数据时效性、避免幻觉）。明确Agent角色：Planner（任务拆解）、Researcher（信息采集）、Analyzer（深度分析）、Synthesizer（报告合成）。
+- 设计系统提示词（Prompt Engineering）
+
+为每个角色编写清晰指令，包括角色设定、思考步骤（ReAct或Plan-and-Execute）、输出格式（JSON结构化）和安全规则（如“必须引用来源”）。示例：Planner提示中要求“将主题拆解为政策、市场、竞争、技术四个维度”。
+
+- 集成工具与记忆系统
+
+工具：Tavily搜索、BeautifulSoup浏览、向量数据库（Milvus/Pinecone）实现RAG。
+记忆：短期（会话上下文）、长期（向量存储历史调研结果）。
+额外：清洗节点（过滤无效信息）、反思节点（自查数据质量）。
+
+## 9. agent 里面 human in the loop的设计吗?以langgraph为例,给初期其设计以及代码
+
+```python
+memory = MemorySaver()
+app = builder.compile(checkpointer=memory, interrupt_before=["human_review"])
+```
+```python
+thread_config = {"configurable": {"thread_id": str(uuid.uuid4())}}
+    user_input = "请给客户写一封会议确认邮件"
+    
+    initial_result = app.invoke(
+        {"messages": [HumanMessage(content=user_input)], "approved": False, "human_feedback": ""},
+        config=thread_config
+    )
+```
+
+## 10. agent 项目框架怎么设计呢?
+
+用 LangGraph 搭建多 Agent 系统，核心思想是将 Agent 抽象为图（Graph）中的节点（Nodes），将 Agent 之间的通信和切换逻辑抽象为边（Edges），并利用 State（状态） 在它们之间传递信息。
+
+将复杂的业务逻辑解耦为可观察、可干预的原子节点
+
+- 编排层 (Orchestration Layer - graph/)
+
+- 能力层 (Capability Layer - tools/ & knowledge/)
+
+- 资源层 (Resource Layer - prompt/)
+
+- 评测层 (Evaluation & Flywheel - evaluate/)
+
+## 12. 服务并发怎么做的?数量是多少?
+
+这个--limit-concurrency 100是指最多同时100个并发
+```python
+if __name__ == "__main__":
+    """
+    uvicorn main:app --host 0.0.0.0 --port 8000 --limit-concurrency 100
+
+    http://0.0.0.0:8000/redoc
+    """
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
+
+## 13. 整个 Agent 项目你觉得还有什么待优化的点
+
+1. 数据
+2. 提示词
+3. 架构设计
+
