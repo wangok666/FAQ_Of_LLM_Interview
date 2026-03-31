@@ -40,6 +40,7 @@
 - 基础概念：理解 Markov 决策过程、价值函数与策略梯度。从 Q-Learning 到 DQN，掌握探索-利用权衡。
 - 高级算法：PPO,GRPO,GSPO...,对齐模型输出与人类偏好。
 - 大模型整合：探索 RL 与 Transformer 的结合,Agent 系统中使用奖励模型指导生成。
+- 学习教程链接: https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU2NDAxMDMxOQ==&action=getalbum&album_id=3994192799708102658
 
 #### 5. Agent 及评测
 - Agent 系统搭建 langgraph
@@ -49,11 +50,6 @@
 #### 6. 英语及其他扩展
 - 英语能力：熟练阅读 arXiv 论文和官方文档, 从综述文章入手，积累专业词汇。
 
-### 目录
-
-```text
-
-```
 
 ### 必备知识
 
@@ -63,7 +59,6 @@
 ### 特别鸣谢
 - [张老师](https://github.com/zyxcambridge)(提供了此库的最开始的思路,没有他就没有此库)
 - [赵老师](https://未提供链接,hh.com)(无偿回答了很多问题)
-- [Kesoft](https://github.com/Kesoft)(添加了pr)
 
 ### Feelings
 
